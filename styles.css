@@ -17,37 +17,89 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: radial-gradient(
-        circle at center,
-        #1f1f1f 0%,
-        #0d0d0d 70%
-    );
 }
 
 /* Table */
 
+.table-room {
+    background: radial-gradient(
+        ellipse 900px 700px at 50% 30%,
+        #2c2c2e 0%,
+        #131314 70%
+    );
+}
+
 .table {
+    position: relative;
+
     width: 900px;
     height: 500px;
 
-    background: linear-gradient(
-        to bottom,
-        #666,
-        #4f4f4f
-    );
-
-    border-radius: 8px;
+    border-radius: 6px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
+    /* overhead-light sheen, brushed-steel grain, base metal gradient */
+    background:
+        radial-gradient(ellipse 520px 260px at 30% 12%, rgba(255,255,255,.16), transparent 60%),
+        repeating-linear-gradient(
+            98deg,
+            rgba(255,255,255,.035) 0px,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        linear-gradient(155deg, #6d6d6f 0%, #58585a 42%, #444446 75%, #37373a 100%);
+
     box-shadow:
-        0 0 80px rgba(255, 255, 255, 0.08),
-        inset 0 2px 10px rgba(255, 255, 255, 0.1);
+        0 50px 70px -20px rgba(0, 0, 0, .7),
+        0 14px 26px rgba(0, 0, 0, .45),
+        inset 0 2px 8px rgba(255, 255, 255, .16),
+        inset 0 -50px 60px rgba(0, 0, 0, .32),
+        inset 0 0 0 1px rgba(255, 255, 255, .06);
 
     transform: perspective(1000px) rotateX(15deg);
+}
+
+/* Corner rivets, sunk into the steel */
+
+.table::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+    pointer-events: none;
+
+    background:
+        radial-gradient(circle 4px at 26px 26px, #131314 55%, transparent 58%),
+        radial-gradient(circle 1.2px at 25px 25px, rgba(255,255,255,.55) 50%, transparent 55%),
+        radial-gradient(circle 4px at calc(100% - 26px) 26px, #131314 55%, transparent 58%),
+        radial-gradient(circle 1.2px at calc(100% - 27px) 25px, rgba(255,255,255,.55) 50%, transparent 55%),
+        radial-gradient(circle 4px at 26px calc(100% - 26px), #131314 55%, transparent 58%),
+        radial-gradient(circle 1.2px at 25px calc(100% - 27px), rgba(255,255,255,.55) 50%, transparent 55%),
+        radial-gradient(circle 4px at calc(100% - 26px) calc(100% - 26px), #131314 55%, transparent 58%),
+        radial-gradient(circle 1.2px at calc(100% - 27px) calc(100% - 27px), rgba(255,255,255,.55) 50%, transparent 55%);
+}
+
+/* Front edge, giving the slab visible thickness */
+
+.table::after {
+    content: "";
+
+    position: absolute;
+    left: 0.25%;
+    right: 0.25%;
+    bottom: -16px;
+
+    height: 18px;
+
+    background: linear-gradient(to bottom, #333335, #1e1e20);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 16px 24px rgba(0, 0, 0, .55);
 }
 
 /* Envelope */
@@ -431,4 +483,376 @@ button:hover {
     transform: translateY(-3px);
 
     box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+/* Case file archive (endings page) */
+
+.archive-body {
+    background: linear-gradient(
+        to bottom,
+        #666,
+        #4f4f4f
+    );
+}
+
+.archive {
+    width: 900px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 30px;
+}
+
+.archive-header {
+    position: relative;
+
+    text-align: center;
+}
+
+.stamp-mini {
+    display: inline-block;
+
+    margin-bottom: 14px;
+    padding: 4px 14px;
+
+    border: 3px solid #b31217;
+    border-radius: 2px;
+
+    color: #b31217;
+
+    font-size: 15px;
+    letter-spacing: 3px;
+
+    transform: rotate(-3deg);
+
+    opacity: .85;
+}
+
+.archive-header h1 {
+    font-size: 34px;
+    letter-spacing: 6px;
+    color: #e8e2d0;
+}
+
+.archive-sub {
+    margin-top: 10px;
+
+    font-size: 15px;
+    letter-spacing: 2px;
+    font-weight: normal;
+    color: #b7ae98;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    gap: 26px;
+
+    width: 900px;
+    height: 400px;
+}
+
+.box {
+    position: relative;
+
+    border-radius: 3px;
+
+    box-shadow: 0 10px 22px rgba(0,0,0,.3);
+
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.box a {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    height: 100%;
+
+    text-decoration: none;
+    color: inherit;
+}
+
+.tab {
+    position: absolute;
+
+    top: -16px;
+    left: 22px;
+
+    padding: 3px 12px;
+
+    font-size: 13px;
+    letter-spacing: 2px;
+
+    border-radius: 2px 2px 0 0;
+}
+
+/* Unlocked: recovered case file, manila folder */
+
+.box.unlocked {
+    background: linear-gradient(165deg, #e2cd97, #c9ae6d);
+    cursor: pointer;
+}
+
+.box.unlocked .tab {
+    background: #c9ae6d;
+    color: #4a3a17;
+}
+
+.box.unlocked .label {
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #3a2c10;
+}
+
+.box.unlocked .status {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #6b5322;
+}
+
+.box.unlocked:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 34px rgba(0,0,0,.4);
+}
+
+.box.unlocked .status.recovered::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    margin-right: 6px;
+    border-radius: 50%;
+
+    background: #2e7d32;
+}
+
+/* Locked: sealed, unopened file */
+
+.box.locked {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    background: repeating-linear-gradient(
+        135deg,
+        #3f3f3f,
+        #3f3f3f 10px,
+        #383838 10px,
+        #383838 20px
+    );
+
+    cursor: not-allowed;
+}
+
+.box.locked .tab {
+    background: #383838;
+    color: #8a8a8a;
+}
+
+.box.locked .lockline {
+    width: 55%;
+    height: 10px;
+
+    background: rgba(0,0,0,.45);
+    border-radius: 1px;
+}
+
+.box.locked .status {
+    margin-top: 4px;
+
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #8a8a8a;
+}
+
+.index-body{
+    background: linear-gradient(
+        to bottom,
+        #666,
+        #000000
+    );
+}
+
+/* ============================================================
+   CASE FILE ARCHIVE — QR / localStorage system
+   ============================================================ */
+
+.archive-progress {
+    width: 900px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 4px;
+
+    color: #b7ae98;
+
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+#progress-text {
+    transition:
+        color .3s ease,
+        text-shadow .3s ease;
+}
+
+#progress-text.complete {
+    color: #d8bf83;
+
+    text-shadow:
+        0 0 12px rgba(216, 191, 131, .55);
+}
+
+
+/* Reset button */
+
+#reset-progress {
+    margin: 0;
+
+    padding: 8px 14px;
+
+    background: rgba(20, 20, 20, .45);
+
+    color: #8f897a;
+
+    border: 1px solid rgba(216, 191, 131, .25);
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+#reset-progress:hover {
+    background: #222;
+
+    color: #d8bf83;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* Locked files cannot be clicked */
+
+.box.locked {
+    pointer-events: none;
+}
+
+
+/* Unlock animation */
+
+.box.unlocked {
+    animation: fileRecovered .45s ease;
+}
+
+@keyframes fileRecovered {
+
+    0% {
+        opacity: .35;
+        transform: scale(.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Responsive */
+
+@media (max-width: 950px) {
+
+    .archive {
+        width: 92vw;
+    }
+
+    .grid,
+    .archive-progress {
+        width: 92vw;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .archive {
+        width: 94vw;
+
+        gap: 20px;
+    }
+
+    .archive-header h1 {
+        font-size: 24px;
+    }
+
+    .grid {
+        width: 94vw;
+
+        height: auto;
+
+        grid-template-columns: 1fr;
+
+        grid-template-rows:
+            repeat(6, 90px);
+
+        gap: 18px;
+    }
+
+    .archive-progress {
+        width: 94vw;
+
+        font-size: 11px;
+    }
+
+}
+
+#back-home {
+    margin: 0;
+    padding: 8px 14px;
+
+    background: rgba(20, 20, 20, .45);
+    color: #8f897a;
+
+    border: 1px solid rgba(216, 191, 131, .25);
+
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+#back-home:hover {
+    background: #222;
+    color: #d8bf83;
+    transform: none;
+    box-shadow: none;
 }
