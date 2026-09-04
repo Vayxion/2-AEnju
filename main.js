@@ -62,3 +62,200 @@ flap.addEventListener("pointerup", () => {
     dragging = false;
 
 });
+
+// ============================================================
+// CASE FILE / ENDING TRACKER
+// ============================================================
+
+const TOTAL_ENDINGS = 6;
+const STORAGE_KEY = "recoveredEndings";
+
+// ------------------------------------------------------------
+// Storage helpers
+// ------------------------------------------------------------
+
+function getRecoveredEndings() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (!Array.isArray(saved)) {
+            return [];
+        }
+
+        return saved
+            .map(Number)
+            .filter(
+                number =>
+                    Number.isInteger(number) &&
+                    number >= 1 &&
+                    number <= TOTAL_ENDINGS
+            );
+
+    } catch (error) {
+        console.error("Could not read recovered endings:", error);
+        return [];
+    }
+}
+
+function saveRecoveredEndings(endings) {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            [...new Set(endings)].sort((a, b) => a - b)
+        )
+    );
+}
+
+// ------------------------------------------------------------
+// Unlock an ending
+// ------------------------------------------------------------
+
+function unlockEnding(number) {
+
+    number = Number(number);
+
+    if (
+        !Number.isInteger(number) ||
+        number < 1 ||
+        number > TOTAL_ENDINGS
+    ) {
+        return;
+    }
+
+    const endings = getRecoveredEndings();
+
+    if (!endings.includes(number)) {
+        endings.push(number);
+        saveRecoveredEndings(endings);
+    }
+}
+
+// ------------------------------------------------------------
+// Unlock a case-file box
+// ------------------------------------------------------------
+
+function renderEnding(number) {
+
+    const box = document.getElementById(`ending${number}`);
+
+    if (!box) return;
+
+    const endings = getRecoveredEndings();
+    const unlocked = endings.includes(number);
+
+    if (unlocked) {
+
+        box.classList.remove("locked");
+        box.classList.add("unlocked");
+
+        box.innerHTML = `
+            <a href="ending${number}.html"
+               aria-label="エンディング${number}を開く">
+
+                <span class="tab">
+                    FILE 0${number}
+                </span>
+
+                <span class="label">
+                    エンディング${number}
+                </span>
+
+                <span class="status recovered">
+                    回収済み
+                </span>
+
+            </a>
+        `;
+
+    } else {
+
+        box.classList.remove("unlocked");
+        box.classList.add("locked");
+
+        box.innerHTML = `
+            <span class="tab">
+                FILE 0${number}
+            </span>
+
+            <span class="lockline"></span>
+            <span class="lockline"></span>
+
+            <span class="status">
+                未開封
+            </span>
+        `;
+    }
+}
+
+// ------------------------------------------------------------
+// Update all six files
+// ------------------------------------------------------------
+
+function renderArchive() {
+
+    for (let number = 1; number <= TOTAL_ENDINGS; number++) {
+        renderEnding(number);
+    }
+
+    updateProgress();
+}
+
+// ------------------------------------------------------------
+// Progress counter
+// ------------------------------------------------------------
+
+function updateProgress() {
+
+    const progressText =
+        document.getElementById("progress-text");
+
+    if (!progressText) return;
+
+    const count = getRecoveredEndings().length;
+
+    progressText.textContent =
+        `RECOVERED: ${count} / ${TOTAL_ENDINGS}`;
+
+    if (count === TOTAL_ENDINGS) {
+        progressText.classList.add("complete");
+    } else {
+        progressText.classList.remove("complete");
+    }
+}
+
+// ------------------------------------------------------------
+// Reset button
+// ------------------------------------------------------------
+
+const resetButton =
+    document.getElementById("reset-progress");
+
+if (resetButton) {
+
+    resetButton.addEventListener("click", () => {
+
+        const confirmed = confirm(
+            "すべての回収記録を削除しますか？"
+        );
+
+        if (!confirmed) return;
+
+        localStorage.removeItem(STORAGE_KEY);
+
+        renderArchive();
+    });
+}
+
+// ------------------------------------------------------------
+// Initial render
+// ------------------------------------------------------------
+
+renderArchive();
+
+const backHomeButton = document.getElementById("back-home");
+
+if (backHomeButton) {
+    backHomeButton.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+}
