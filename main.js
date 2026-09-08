@@ -71,10 +71,56 @@ if (flap) {
 }
 
 // ============================================================
+// PAGE TRANSITION — matches index.html / mission.html
+// ============================================================
+
+const pageTransition = document.getElementById("page-transition");
+const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+).matches;
+
+if (pageTransition) {
+
+    setTimeout(() => {
+
+        void pageTransition.offsetWidth;
+
+        pageTransition.classList.remove("covered");
+        pageTransition.classList.add("arrival");
+
+        setTimeout(() => {
+
+            pageTransition.classList.remove("arrival");
+            pageTransition.setAttribute("aria-hidden", "true");
+
+        }, reducedMotion ? 40 : 940);
+
+    }, reducedMotion ? 24 : 128);
+
+}
+
+function navigateWithTransition(url) {
+
+    if (!pageTransition) {
+        window.location.href = url;
+        return;
+    }
+
+    pageTransition.classList.remove("arrival", "covered");
+    pageTransition.classList.add("active");
+    pageTransition.setAttribute("aria-hidden", "false");
+
+    setTimeout(() => {
+        window.location.href = url;
+    }, reducedMotion ? 40 : 920);
+
+}
+
+// ============================================================
 // CASE FILE / ENDING TRACKER
 // ============================================================
 
-const TOTAL_ENDINGS = 6;
+const TOTAL_ENDINGS = 4;
 const STORAGE_KEY = "recoveredEndings";
 
 // ------------------------------------------------------------
@@ -263,6 +309,6 @@ const backHomeButton = document.getElementById("back-home");
 
 if (backHomeButton) {
     backHomeButton.addEventListener("click", () => {
-        window.location.href = "index.html";
+        navigateWithTransition("index.html");
     });
 }
