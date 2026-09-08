@@ -6,62 +6,69 @@ let dragging = false;
 let startY = 0;
 let opened = false;
 
-flap.addEventListener("pointerdown", (e) => {
+// Only the envelope page (index.html) has these elements.
+// Guard so this doesn't crash — and block the rest of this
+// script — on every other page that loads main.js.
+if (flap) {
 
-    if (opened) return;
+    flap.addEventListener("pointerdown", (e) => {
 
-    dragging = true;
-    startY = e.clientY;
+        if (opened) return;
 
-    flap.setPointerCapture(e.pointerId);
-});
+        dragging = true;
+        startY = e.clientY;
 
-flap.addEventListener("pointermove", (e) => {
+        flap.setPointerCapture(e.pointerId);
+    });
 
-    if (!dragging || opened) return;
+    flap.addEventListener("pointermove", (e) => {
 
-    let distance = startY - e.clientY;
+        if (!dragging || opened) return;
 
-    distance = Math.max(0, distance);
+        let distance = startY - e.clientY;
 
-    let angle = distance * 1.2;
-    angle = Math.min(angle, 130);
+        distance = Math.max(0, distance);
 
-    flap.style.transform = `rotateX(${angle}deg)`;
+        let angle = distance * 1.2;
+        angle = Math.min(angle, 130);
 
-    if (angle >= 120) {
+        flap.style.transform = `rotateX(${angle}deg)`;
 
-        opened = true;
+        if (angle >= 120) {
+
+            opened = true;
+            dragging = false;
+
+            flap.style.transform = "rotateX(130deg)";
+
+            // Slide paper out
+            paper.classList.add("out");
+
+            // Fade screen after paper finishes moving
+            setTimeout(() => {
+
+                transition.classList.add("show");
+
+            }, 800);
+
+            // Go to next page
+            setTimeout(() => {
+
+                window.location.href = "page1.html";
+
+            }, 2200);
+
+        }
+
+    });
+
+    flap.addEventListener("pointerup", () => {
+
         dragging = false;
 
-        flap.style.transform = "rotateX(130deg)";
+    });
 
-        // Slide paper out
-        paper.classList.add("out");
-
-        // Fade screen after paper finishes moving
-        setTimeout(() => {
-
-            transition.classList.add("show");
-
-        }, 800);
-
-        // Go to next page
-        setTimeout(() => {
-
-            window.location.href = "page1.html";
-
-        }, 2200);
-
-    }
-
-});
-
-flap.addEventListener("pointerup", () => {
-
-    dragging = false;
-
-});
+}
 
 // ============================================================
 // CASE FILE / ENDING TRACKER
