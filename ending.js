@@ -1,6 +1,6 @@
 const endingNumber = Number(document.body.dataset.ending);
 
-if (endingNumber >= 1 && endingNumber <= 6) {
+if (endingNumber >= 1 && endingNumber <= 3) {
     const endings = JSON.parse(
         localStorage.getItem("recoveredEndings") || "[]"
     );
