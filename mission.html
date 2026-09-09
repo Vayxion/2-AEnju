@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070808">
   <title>CODE:2A — 裏切り者を見つけろ</title>
-  <link rel="icon" type="image/png" href="CODE2A.png.png">
   <meta name="description" content="スペクトラの裏切り者を追う、10分間の潜入ミッション。">
   <style>
     :root {
@@ -509,10 +508,10 @@
     .transcript-body p { margin:0 0 10px; color:#b1b4ad; font-size:12px; line-height:1.85; overflow-wrap:anywhere; }
     .transcript-body p:last-child { margin-bottom:0; }
     .transcript-body b { color:#757a74; font-weight:600; }
-    .cctv-frame { position:relative; overflow:hidden; min-height:370px; aspect-ratio:16/10; border:1px solid #323632; background:linear-gradient(rgba(5,9,7,.25),rgba(4,7,5,.78)),repeating-linear-gradient(90deg,#151a16 0 12%,#0c100d 12% 25%); }
+    .cctv-frame { position:relative; overflow:hidden; width: 100%; min-height:0; height:auto; aspect-ratio:16/10; border:1px solid #323632; background:linear-gradient(rgba(5,9,7,.25),rgba(4,7,5,.78)),repeating-linear-gradient(90deg,#151a16 0 12%,#0c100d 12% 25%); }
     .cctv-frame::before { content:""; position:absolute; z-index:8; inset:0; background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(255,255,255,.035) 5px); pointer-events:none; }
     .cctv-frame::after { content:""; position:absolute; z-index:9; left:0; right:0; height:2px; background:rgba(219,226,214,.18); animation:cctvScan 3.4s linear infinite; }
-    .cctv-meta { position:absolute; z-index:10; top:13px; left:14px; right:14px; display:flex; justify-content:space-between; color:#d1d6ce; font:9px Consolas,monospace; letter-spacing:.1em; text-shadow:0 1px 3px black; }
+    .cctv-meta { position:absolute; z-index:10; top:10px; left:10px; width:auto; right:14px; display:flex; justify-content:space-between; color:#d1d6ce; font:9px Consolas,monospace; letter-spacing:.1em; text-shadow:0 1px 3px black; }
     .cctv-meta b { color:#e85a52; font-weight:400; }
     .cctv-door { position:absolute; left:12%; bottom:0; width:30%; height:72%; border:3px solid #697069; border-bottom:0; background:#111713; }
     .cctv-door::after { content:"事務室"; position:absolute; top:12px; left:50%; transform:translateX(-50%); color:#818981; font-size:12px; white-space:nowrap; }
@@ -526,7 +525,7 @@
     .penguin-scene { position:relative; width:100%; height:100%; overflow:hidden; background:linear-gradient(#192027 0 64%,#7e8889 65% 70%,#111719 71%); }
     .penguin-scene::before { content:"23"; position:absolute; right:8px; top:5px; color:#dbe0da; font:12px Consolas,monospace; }
     .penguin-scene::after { content:""; position:absolute; left:39%; bottom:14%; width:25%; height:55%; border-radius:50% 50% 40% 40%; background:radial-gradient(ellipse at 50% 58%,#dfe2db 0 37%,transparent 38%),#070908; transform:rotate(-4deg); }
-    .cctv-caption { margin:13px 0 0; color:#777b75; font:10px Consolas,monospace; line-height:1.7; letter-spacing:.07em; }
+    .cctv-caption { margin:13px 0 0; max-width:100%; overflow-wrap:anywhere; word-break:break-word; color:#777b75; font:10px Consolas,monospace; line-height:1.7; letter-spacing:.07em; }
     .investigation-decision { display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,.72fr); gap:18px; margin-top:18px; }
     .investigation-hints,.culprit-box { padding:20px; border:1px solid var(--line); background:#0b0d0c; }
     .investigation-hints h2,.culprit-box h2 { margin:0 0 8px; font-size:21px; }
@@ -1013,19 +1012,19 @@
       <div class="gallery-memory-viewport">
         <div class="gallery-memory-track" id="gallery-memory-track">
           <article class="gallery-memory-slide active" aria-hidden="false">
-            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="painting-a.jpg" data-title="絵画 A — 海浜幕張駅" type="button"><img src="painting-a.jpg" alt="夜の海浜幕張駅ホームを描いた絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
+            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="assets/painting-a.jpg" data-title="絵画 A — 海浜幕張駅" type="button"><img src="assets/painting-a.jpg" alt="夜の海浜幕張駅ホームを描いた絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
             <div class="gallery-memory-info"><div class="gallery-memory-code"><span>PAINTING A</span><span>ARCHIVE 01 / 04</span></div><h3>海浜幕張駅</h3><p>夜の海浜幕張駅ホームを描いた作品。駅名標には、検見川浜・海浜幕張・幕張豊砂の3駅が並んでいる。</p><div class="gallery-memory-note">回想記録 / 駅名と、その前後の駅を確認できる。</div></div>
           </article>
           <article class="gallery-memory-slide" aria-hidden="true">
-            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="painting-b.jpg" data-title="絵画 B — 繁華街の鶏" type="button"><img src="painting-b.jpg" alt="夜の繁華街に立つ鶏を描いた絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
+            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="assets/painting-b.jpg" data-title="絵画 B — 繁華街の鶏" type="button"><img src="assets/painting-b.jpg" alt="夜の繁華街に立つ鶏を描いた絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
             <div class="gallery-memory-info"><div class="gallery-memory-code"><span>PAINTING B</span><span>ARCHIVE 02 / 04</span></div><h3>繁華街の鶏</h3><p>雨上がりの繁華街。その中央に一羽の鶏が立つ、不思議な構図の作品。</p><div class="gallery-memory-note">回想記録 / 絵の中にあるものを、言葉として捉えてみる。</div></div>
           </article>
           <article class="gallery-memory-slide" aria-hidden="true">
-            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="painting-c.jpg" data-title="絵画 C — あいうえお表" type="button"><img src="painting-c.jpg" alt="五十音表を示す授業風景の絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
+            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="assets/painting-c.jpg" data-title="絵画 C — あいうえお表" type="button"><img src="assets/painting-c.jpg" alt="五十音表を示す授業風景の絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
             <div class="gallery-memory-info"><div class="gallery-memory-code"><span>PAINTING C</span><span>ARCHIVE 03 / 04</span></div><h3>あいうえお表</h3><p>教室の大型画面に映された五十音表。各文字の上下左右の位置関係を確認できる。</p><div class="gallery-memory-note">回想記録 / 表は右から左へ「あ・か・さ……」の順に並ぶ。</div></div>
           </article>
           <article class="gallery-memory-slide" aria-hidden="true">
-            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="painting-d.jpg" data-title="絵画 D — 天へ" type="button"><img src="painting-d.jpg" alt="光へ続く石段を描いた期間限定絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
+            <div class="gallery-memory-art"><button class="gallery-memory-image" data-gallery-art data-image="assets/painting-d.jpg" data-title="絵画 D — 天へ" type="button"><img src="assets/painting-d.jpg" alt="光へ続く石段を描いた期間限定絵画"><span class="zoom-hint">＋ 拡大</span></button></div>
             <div class="gallery-memory-info"><div class="gallery-memory-code"><span>PAINTING D</span><span>LIMITED EXHIBITION</span></div><h3>天へ</h3><p>光の差す先へ続く石段を描いた、9月の期間限定展示。</p><div class="gallery-memory-schedule" aria-label="9月の展示予定表"><div class="schedule-row"><span>9/1〜9/6</span><span>23時のペンギン</span></div><div class="schedule-row"><span>9/7〜9/13</span><span>天へ</span></div><div class="schedule-row"><span>9/14〜9/20</span><span>風の記憶</span></div><div class="schedule-row"><span>9/21〜9/27</span><span>夢の残響</span></div></div></div>
           </article>
         </div>
