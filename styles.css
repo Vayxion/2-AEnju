@@ -1040,3 +1040,97 @@ button:hover {
         animation-duration: .01ms !important;
     }
 }
+
+.terminal {
+    position: relative;
+    background: #050805;
+    color: #f42c2c;
+
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+
+    padding: 25px;
+    border: 1px solid #ff1414;
+
+    box-shadow:
+        0 0 10px rgba(207, 31, 31, 0.3),
+        inset 0 0 30px rgba(57, 255, 20, 0.05);
+
+    text-shadow:
+        0 0 4px #cd3434,
+        0 0 10px rgba(213, 50, 50, 0.5);
+
+    overflow: hidden;
+}
+
+/* CRT scanlines */
+.terminal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(57, 255, 20, 0.04) 3px
+    );
+
+    pointer-events: none;
+}
+
+/* Slight screen glow */
+.terminal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+        ellipse at center,
+        transparent 50%,
+        rgba(0, 0, 0, 0.35)
+    );
+
+    pointer-events: none;
+}
+
+.terminal-text {
+    font-family: "Courier New", monospace;
+    color: #9e1d1d;
+    font-size: 18px;
+    letter-spacing: 2px;
+    line-height: 1.6;
+
+    text-shadow:
+        0 0 3px #f14e4e,
+        0 0 8px rgba(220, 67, 67, 0.6);
+
+    animation: flicker 0.15s infinite alternate;
+}
+
+/* Subtle CRT flicker */
+@keyframes flicker {
+    from {
+        opacity: 0.95;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.terminal-text::after {
+    content: "█";
+    margin-left: 5px;
+    animation: cursor-blink 0.8s steps(1) infinite;
+}
+
+@keyframes cursor-blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
