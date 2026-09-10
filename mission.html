@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070808">
   <title>CODE:2A — 裏切り者を見つけろ</title>
-  <link rel="icon" type="image/png" href="CODE2A.png.png">
+  <link rel="icon" type="image/png" href="assets/CODE2A.png.png">
   <meta name="description" content="スペクトラの裏切り者を追う、10分間の潜入ミッション。">
   <style>
     :root {
@@ -523,9 +523,184 @@
     .cctv-bag::before { content:""; position:absolute; left:7px; right:7px; top:-19px; height:18px; border:4px solid #d5deda93; border-bottom:0; border-radius:14px 14px 0 0; }
     .cctv-artwork { position:absolute; right:7%; top:20%; width:27%; height:42%; display:grid; place-items:center; border:7px solid #4f564f; background:#d5d7ce; box-shadow:0 0 0 1px #111; }
     .cctv-artwork::after { content:"DISPLAY D"; position:absolute; right:2px; bottom:-24px; color:#a8afa7; font:8px Consolas,monospace; letter-spacing:.12em; }
-    .penguin-scene { position:relative; width:100%; height:100%; overflow:hidden; background:linear-gradient(#192027 0 64%,#7e8889 65% 70%,#111719 71%); }
-    .penguin-scene::before { content:"23"; position:absolute; right:8px; top:5px; color:#dbe0da; font:12px Consolas,monospace; }
-    .penguin-scene::after { content:""; position:absolute; left:39%; bottom:14%; width:25%; height:55%; border-radius:50% 50% 40% 40%; background:radial-gradient(ellipse at 50% 58%,#dfe2db 0 37%,transparent 38%),#070908; transform:rotate(-4deg); }
+.penguin-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    /* 夜空：二枚の紙を貼り合わせたような上下二段のムラ + 星の飛沫 */
+    background:
+        /* 星（白・大小さまざま） */
+        radial-gradient(circle at 9% 10%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 21% 5%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 33% 19%, #fff 0 1.3px, transparent 1.9px),
+        radial-gradient(circle at 62% 8%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 90% 9%, #fff 0 1.3px, transparent 1.9px),
+        radial-gradient(circle at 6% 41%, #fff 0 1.2px, transparent 1.8px),
+        radial-gradient(circle at 15% 60%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 8% 85%, #fff 0 1.4px, transparent 2px),
+        radial-gradient(circle at 28% 95%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 88% 60%, #fff 0 1.2px, transparent 1.8px),
+        radial-gradient(circle at 94% 80%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 74% 93%, #fff 0 1.4px, transparent 2px),
+        radial-gradient(circle at 53% 97%, #fff 0 1px, transparent 1.6px),
+        radial-gradient(circle at 41% 6%, #fff 0 1px, transparent 1.6px),
+        /* 星（淡い黄緑） */
+        radial-gradient(circle at 17% 27%, #d9e07a 0 1.4px, transparent 2px),
+        radial-gradient(circle at 71% 5%, #d9e07a 0 1.1px, transparent 1.8px),
+        radial-gradient(circle at 62% 87%, #d9e07a 0 1.4px, transparent 2px),
+        radial-gradient(circle at 11% 95%, #d9e07a 0 1.1px, transparent 1.8px),
+        /* 星（かすかな水色） */
+        radial-gradient(circle at 82% 40%, #9fd2d6 0 1.2px, transparent 1.9px),
+        /* 水彩のにじみ */
+        radial-gradient(ellipse 45% 30% at 78% 14%, rgba(84,140,130,.32), transparent 70%),
+        radial-gradient(ellipse 48% 34% at 18% 76%, rgba(120,70,110,.28), transparent 70%),
+        radial-gradient(ellipse 38% 24% at 86% 82%, rgba(70,95,70,.26), transparent 70%),
+        /* 継ぎ目（紙を貼り合わせた線） */
+        linear-gradient(to bottom, transparent 0 60.5%, rgba(255,255,255,.12) 60.5% 62%, rgba(0,0,0,.18) 62% 63%, transparent 63% 100%),
+        /* 上段：緑がかった夜空 */
+        linear-gradient(to bottom, #364240 0%, #232b2a 55%, transparent 62%),
+        /* 下段：紫がかった夜空（土台） */
+        linear-gradient(to bottom, #29212c 0%, #1c1620 100%);
+}
+
+
+/* 「23時」の数字 */
+.penguin-scene::before {
+    content: "23";
+    position: absolute;
+    z-index: 20;
+    right: 7%;
+    top: 4%;
+
+    color: rgba(235,238,231,.82);
+    font: 10px/1 Consolas, monospace;
+    letter-spacing: .05em;
+    text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+
+
+/* =========================================================
+   ペンギン本体
+   ========================================================= */
+
+.penguin-scene::after {
+    content: "";
+    position: absolute;
+    z-index: 10;
+
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    /* 切り絵のような輪郭（くちばし→頭→背中→左翼→本体→右翼→足） */
+    clip-path: polygon(
+        68% 18%, 62% 14%, 56% 17%, 58% 24%, 50% 28%,
+        33% 34%, 12% 50%, 28% 54%, 32% 66%, 30% 80%,
+        24% 93%, 32% 88%, 38% 96%, 46% 82%, 62% 62%,
+        60% 58%, 76% 78%, 64% 68%, 66% 45%, 62% 30%, 63% 22%
+    );
+
+    background:
+        /* 目 */
+        radial-gradient(circle at 50% 50%, #1b1e1e 0 60%, transparent 65%)
+        61% 19% / 3.5% 3.5% no-repeat,
+
+        /* 白い腹 */
+        radial-gradient(
+            ellipse 27% 35% at 46% 60%,
+            #e3e6dd 0%,
+            #d3d6cd 50%,
+            rgba(170,176,170,.35) 72%,
+            transparent 84%
+        ),
+
+        /* 左翼の陰（コントラスト） */
+        radial-gradient(
+            ellipse 40% 26% at 24% 45%,
+            rgba(30,36,37,.45) 0%,
+            transparent 75%
+        ),
+
+        /* 頭〜背中〜翼〜足の地色（頭側が明るく、尾側が暗い） */
+        linear-gradient(165deg, #8a9394 0%, #626b6d 42%, #454e50 70%, #2f383a 100%);
+
+    filter:
+        drop-shadow(0 3px 4px rgba(0,0,0,.5))
+        drop-shadow(0 0 3px rgba(255,255,255,.1));
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   絵画らしい星
+   ========================================================= */
+
+.penguin-scene {
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.08),
+        inset 0 0 18px rgba(0,0,0,.55);
+}
+
+
+/* =========================================================
+   スマホ最優先
+   絵画自体が小さくなるので、ペンギンを少し大きくする
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .cctv-artwork {
+        right: 5%;
+        top: 12%;
+        width: 30%;
+        height: 58%;
+        border-width: 4px;
+    }
+
+    .penguin-scene {
+        width: 100%;
+        height: 100%;
+    }
+
+    .penguin-scene::before {
+        right: 6%;
+        top: 4%;
+        font-size: 8px;
+    }
+
+    .penguin-scene::after {
+        transform: scale(1.04);
+        transform-origin: center center;
+    }
+}
+
+
+/* =========================================================
+   かなり小さいスマホ
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .cctv-artwork {
+        right: 4%;
+        top: 10%;
+        width: 31%;
+        height: 60%;
+        border-width: 3px;
+    }
+
+    .penguin-scene::after {
+        transform: scale(1.08);
+    }
+
+    .penguin-scene::before {
+        font-size: 7px;
+    }
+}
     .cctv-caption { margin:13px 0 0; max-width:100%; overflow-wrap:anywhere; word-break:break-word; color:#777b75; font:10px Consolas,monospace; line-height:1.7; letter-spacing:.07em; }
     .investigation-decision { display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,.72fr); gap:18px; margin-top:18px; }
     .investigation-hints,.culprit-box { padding:20px; border:1px solid var(--line); background:#0b0d0c; }
@@ -777,7 +952,7 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><a href="index.html">SPECTRA</a></div>
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><a href="index.html" style="color: inherit; text-decoration: none;">SPECTRA</a></div>
       <div class="classification">CODE:2A / <b>TOP SECRET</b></div>
       <div class="timer" id="timer" aria-live="polite"><span class="timer-label">TIME REMAINING</span><span class="timer-value" id="timer-value">10:00</span></div>
       <div class="top-actions"><span class="difficulty-badge" aria-label="難易度 難しい">難しい / HARD</span></div>
