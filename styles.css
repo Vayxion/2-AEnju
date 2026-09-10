@@ -1134,3 +1134,71 @@ button:hover {
         opacity: 0;
     }
 }
+
+/* =========================
+   RETURN TO MAIN FILE
+   ========================= */
+
+.return-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.return-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 22px;
+
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+
+    color: #ff3b3b;
+    background: #080505;
+
+    border: 1px solid #ff3b3b;
+
+    box-shadow:
+        0 0 6px rgba(255, 59, 59, 0.25),
+        inset 0 0 10px rgba(255, 59, 59, 0.04);
+
+    text-shadow:
+        0 0 4px #ff3b3b;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.return-arrow {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.return-button:hover {
+    color: #080505;
+    background: #ff3b3b;
+
+    box-shadow:
+        0 0 12px rgba(255, 59, 59, 0.6),
+        0 0 25px rgba(255, 59, 59, 0.25);
+
+    text-shadow: none;
+
+    transform: translateY(-2px);
+}
+
+.return-button:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 0 5px rgba(255, 59, 59, 0.4);
+}
