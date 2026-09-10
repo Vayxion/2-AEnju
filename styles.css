@@ -1120,10 +1120,19 @@ button:hover {
     }
 }
 
-.terminal-text::after {
-    content: "█";
-    margin-left: 5px;
-    animation: cursor-blink 0.8s steps(1) infinite;
+.typing-cursor {
+    display: inline;
+    margin-left: 4px;
+    animation: terminalCursor 0.8s steps(1) infinite;
+}
+
+@keyframes terminalCursor {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
 }
 
 @keyframes cursor-blink {
@@ -1282,12 +1291,6 @@ button:hover {
     }
 }
 
-.trueterminal-text::after {
-    content: "█";
-    margin-left: 5px;
-    animation: cursor-blink 0.8s steps(1) infinite;
-}
-
 @keyframes cursor-blink {
     0%, 50% {
         opacity: 1;
@@ -1359,4 +1362,23 @@ button:hover {
 
     box-shadow:
         0 0 5px #d8bf83(255, 59, 59, 0.4);
+}
+
+.trueterminal {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Hide return button until report is finished */
+
+.truereturn-container {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+.truereturn-container.visible {
+    opacity: 1;
+    pointer-events: auto;
 }

@@ -312,3 +312,8 @@ if (backHomeButton) {
         navigateWithTransition("index.html");
     });
 }
+
+const cursor = document.createElement("span");
+cursor.className = "typing-cursor";
+cursor.textContent = "▋";
+terminal.appendChild(cursor);

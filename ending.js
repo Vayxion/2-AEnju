@@ -63,3 +63,102 @@ if (transition) {
     }
 
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const terminal = document.getElementById("terminal");
+
+    if (!terminal) return;
+
+    const lines = Array.from(terminal.children);
+
+    // Save the original text
+    const dialogue = lines.map(line => ({
+        element: line,
+        text: line.textContent,
+        isSpace: line.classList.contains("terminal-space")
+    }));
+
+    // Clear everything
+    terminal.innerHTML = "";
+
+    let lineIndex = 0;
+
+    // Typing speed
+    const typingSpeed = 35;
+
+    // Delay between lines
+    const lineDelay = 350;
+
+    function typeLine() {
+
+        if (lineIndex >= dialogue.length) {
+            showReturnButton();
+            return;
+        }
+
+        const current = dialogue[lineIndex];
+
+        // Empty line
+        if (current.isSpace) {
+
+            const space = document.createElement("div");
+            space.className = "terminal-space";
+
+            terminal.appendChild(space);
+
+            lineIndex++;
+
+            setTimeout(typeLine, 100);
+            return;
+        }
+
+        const line = document.createElement("div");
+        terminal.appendChild(line);
+
+        let characterIndex = 0;
+
+        function typeCharacter() {
+
+            if (characterIndex < current.text.length) {
+
+                line.textContent += current.text.charAt(characterIndex);
+
+                characterIndex++;
+
+                setTimeout(typeCharacter, typingSpeed);
+
+            } else {
+
+                lineIndex++;
+
+                setTimeout(typeLine, lineDelay);
+            }
+        }
+
+        typeCharacter();
+    }
+
+
+    function showReturnButton() {
+
+    // Add cursor to the very end of the report
+    const cursor = document.createElement("span");
+    cursor.className = "typing-cursor";
+    cursor.textContent = "▋";
+
+    terminal.appendChild(cursor);
+
+    // Show return button
+    const button = document.querySelector(".truereturn-container");
+
+    if (button) {
+        button.classList.add("visible");
+    }
+}
+
+
+    // Start typing after a short delay
+    setTimeout(typeLine, 1000);
+
+});
